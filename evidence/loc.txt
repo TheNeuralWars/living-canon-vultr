@@ -1,0 +1,13 @@
+   65 lib/agent.js
+  240 lib/canonguard.js
+   71 lib/inference.js
+   82 lib/policy.js
+   80 lib/sandbox.js
+   67 server.js
+   89 public/app.js
+  104 public/index.html
+  110 public/styles.css
+  169 test/canonguard.test.js
+   19 test/docker.test.js
+   40 test/server.test.js
+ 1136 total

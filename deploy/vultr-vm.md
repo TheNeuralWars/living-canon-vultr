@@ -9,3 +9,6 @@
 - [ ] Caddy: `apt install caddy`; Caddyfile `demo.example.com { reverse_proxy 127.0.0.1:3000 }` (DNS A record → VM IP; no Cloudflare tunnel changes)
 - [ ] Smoke: 3 demo prompts from README; verify blocked calls + sandbox containers exit (`docker ps -a` empty)
 - [ ] Record video; put URL in README + lablab submission
+
+## Publication note (GoalWorld)
+After `REVIEW: approved`, October publishes this app at `https://goalworld.fun/blast-radius/` behind Caddy (`handle_path /blast-radius/* { reverse_proxy 127.0.0.1:3077 }`). The UI uses relative asset/API URLs and the server also accepts an unstripped `/blast-radius` prefix. Run with `SANDBOX_MODE=docker` so the header badge reads `sandbox: docker · one-shot`.

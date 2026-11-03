@@ -1,0 +1,212 @@
+
+> living-canon-vultr@0.2.0 test
+> node --test test/*.test.js
+
+TAP version 13
+# Subtest: rule: Serpent Coil on RIGHT wrist is a high-severity violation with evidence span
+ok 1 - rule: Serpent Coil on RIGHT wrist is a high-severity violation with evidence span
+  ---
+  duration_ms: 5.417129
+  type: 'test'
+  ...
+# Subtest: rule: Coil on LEFT wrist with known tags passes clean
+ok 2 - rule: Coil on LEFT wrist with known tags passes clean
+  ---
+  duration_ms: 4.468808
+  type: 'test'
+  ...
+# Subtest: rule: coil-left and "right" in another sentence does not cross-trigger
+ok 3 - rule: coil-left and "right" in another sentence does not cross-trigger
+  ---
+  duration_ms: 0.617321
+  type: 'test'
+  ...
+# Subtest: rule: Sierra scar on RIGHT cheek flagged; LEFT cheek ok
+ok 4 - rule: Sierra scar on RIGHT cheek flagged; LEFT cheek ok
+  ---
+  duration_ms: 0.978841
+  type: 'test'
+  ...
+# Subtest: rule: readable badge text flagged; blank badge ok
+ok 5 - rule: readable badge text flagged; blank badge ok
+  ---
+  duration_ms: 0.776761
+  type: 'test'
+  ...
+# Subtest: rule: global negatives — logo, watermark, HUD
+ok 6 - rule: global negatives — logo, watermark, HUD
+  ---
+  duration_ms: 0.704962
+  type: 'test'
+  ...
+# Subtest: rule: split-screen / panel language flagged
+ok 7 - rule: split-screen / panel language flagged
+  ---
+  duration_ms: 0.47416
+  type: 'test'
+  ...
+# Subtest: rule: copper-bronze vest on a male character flagged; on Kora ok
+ok 8 - rule: copper-bronze vest on a male character flagged; on Kora ok
+  ---
+  duration_ms: 0.665122
+  type: 'test'
+  ...
+# Subtest: rule: unknown @character and \#location flagged; aliases accepted
+ok 9 - rule: unknown @character and \#location flagged; aliases accepted
+  ---
+  duration_ms: 1.239362
+  type: 'test'
+  ...
+# Subtest: rule: eye colour lock
+ok 10 - rule: eye colour lock
+  ---
+  duration_ms: 1.245362
+  type: 'test'
+  ...
+# Subtest: plan: always list_canon + read canon.json first
+ok 11 - plan: always list_canon + read canon.json first
+  ---
+  duration_ms: 1.306402
+  type: 'test'
+  ...
+# Subtest: plan: overwrite intent plans write_canon (so policy can block it)
+ok 12 - plan: overwrite intent plans write_canon (so policy can block it)
+  ---
+  duration_ms: 0.927881
+  type: 'test'
+  ...
+# Subtest: plan: "read <path>" adds that path; extraCalls appended
+ok 13 - plan: "read <path>" adds that path; extraCalls appended
+  ---
+  duration_ms: 0.280961
+  type: 'test'
+  ...
+# Subtest: policy: path jail rejects escapes and tricks, accepts canon paths
+ok 14 - policy: path jail rejects escapes and tricks, accepts canon paths
+  ---
+  duration_ms: 0.480521
+  type: 'test'
+  ...
+# Subtest: policy: write/exec/http tools not allowlisted; list_canon is
+ok 15 - policy: write/exec/http tools not allowlisted; list_canon is
+  ---
+  duration_ms: 0.36056
+  type: 'test'
+  ...
+# Subtest: policy: summary exposes human-readable rules + docker flags
+ok 16 - policy: summary exposes human-readable rules + docker flags
+  ---
+  duration_ms: 0.324801
+  type: 'test'
+  ...
+# Subtest: sandbox: docker argv enforces no network, ro, no caps, nobody, :ro canon
+ok 17 - sandbox: docker argv enforces no network, ro, no caps, nobody, :ro canon
+  ---
+  duration_ms: 0.498201
+  type: 'test'
+  ...
+# Subtest: sandbox: blocked call never executes (docker mode too) and reports zero blast radius
+ok 18 - sandbox: blocked call never executes (docker mode too) and reports zero blast radius
+  ---
+  duration_ms: 0.444841
+  type: 'test'
+  ...
+# Subtest: sandbox: write_canon blocked, canon file untouched
+ok 19 - sandbox: write_canon blocked, canon file untouched
+  ---
+  duration_ms: 1.432562
+  type: 'test'
+  ...
+# Subtest: sandbox: list_canon allowed and lists canon.json
+ok 20 - sandbox: list_canon allowed and lists canon.json
+  ---
+  duration_ms: 0.502041
+  type: 'test'
+  ...
+# Subtest: inference: mock is the default; live without key degrades honestly
+ok 21 - inference: mock is the default; live without key degrades honestly
+  ---
+  duration_ms: 0.599041
+  type: 'test'
+  ...
+# Subtest: inference: mock note references the actual violated rules
+ok 22 - inference: mock note references the actual violated rules
+  ---
+  duration_ms: 0.37068
+  type: 'test'
+  ...
+# Subtest: E2E good: PASS, 2 executed, 0 blocked, mock mode reported
+ok 23 - E2E good: PASS, 2 executed, 0 blocked, mock mode reported
+  ---
+  duration_ms: 1.494563
+  type: 'test'
+  ...
+# Subtest: E2E bad: REVISE with rule hits + blocked write, host_writes 0
+ok 24 - E2E bad: REVISE with rule hits + blocked write, host_writes 0
+  ---
+  duration_ms: 1.855323
+  type: 'test'
+  ...
+# Subtest: E2E escape: every escape/exfil/exec blocked, nothing outside /canon read
+ok 25 - E2E escape: every escape/exfil/exec blocked, nothing outside /canon read
+  ---
+  duration_ms: 4.860448
+  type: 'test'
+  ...
+# Subtest: E2E: tool outputs truncated in response
+ok 26 - E2E: tool outputs truncated in response
+  ---
+  duration_ms: 1.412082
+  type: 'test'
+  ...
+# Subtest: docker: allowed read runs in one-shot container and returns canon
+ok 27 - docker: allowed read runs in one-shot container and returns canon
+  ---
+  duration_ms: 400.32252
+  type: 'test'
+  ...
+# Subtest: docker: container cannot write to /canon (ro mount) nor reach network
+ok 28 - docker: container cannot write to /canon (ro mount) nor reach network
+  ---
+  duration_ms: 624.069158
+  type: 'test'
+  ...
+# Subtest: HTTP: /api/health reports mock + local by default with policy summary
+ok 29 - HTTP: /api/health reports mock + local by default with policy summary
+  ---
+  duration_ms: 82.595212
+  type: 'test'
+  ...
+# Subtest: HTTP: works under /blast-radius/ prefix and serves static assets with relative URLs
+ok 30 - HTTP: works under /blast-radius/ prefix and serves static assets with relative URLs
+  ---
+  duration_ms: 25.372561
+  type: 'test'
+  ...
+# Subtest: HTTP: static path traversal rejected
+ok 31 - HTTP: static path traversal rejected
+  ---
+  duration_ms: 3.803366
+  type: 'test'
+  ...
+# Subtest: HTTP: POST /api/agent validates input and returns rich report
+ok 32 - HTTP: POST /api/agent validates input and returns rich report
+  ---
+  duration_ms: 39.721743
+  type: 'test'
+  ...
+# Subtest: HTTP: canon summary lists keys only
+ok 33 - HTTP: canon summary lists keys only
+  ---
+  duration_ms: 4.401927
+  type: 'test'
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 33
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1257.406091

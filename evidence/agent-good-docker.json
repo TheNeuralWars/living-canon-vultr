@@ -1,0 +1,137 @@
+{
+ "verdict": "PASS",
+ "prompt": "@mileo_chen steps out of the steam haze of #tunnel_six, the Serpent Coil pulsing indigo on his left wrist, his blank hexagonal badge catching the amber light. @sierra_catalano waits by the hatch, pale scar on her left cheek.",
+ "violations": [],
+ "focus": {
+  "characters": [
+   "mileo_chen",
+   "sierra_catalano"
+  ],
+  "locations": [
+   "tunnel_six"
+  ]
+ },
+ "plan": [
+  {
+   "step": 1,
+   "tool": "list_canon",
+   "path": ".",
+   "why": "enumerate canon files available to the agent"
+  },
+  {
+   "step": 2,
+   "tool": "read_canon",
+   "path": "canon.json",
+   "why": "load characters, locations and global negatives (focus: mileo_chen, sierra_catalano)"
+  }
+ ],
+ "tools": [
+  {
+   "step": 1,
+   "tool": "list_canon",
+   "requested": ".",
+   "resolved": "/canon",
+   "why": "enumerate canon files available to the agent",
+   "decision": "allowed",
+   "reason": "allowlisted + jailed",
+   "explain": null,
+   "mode": "docker",
+   "blast_radius": {
+    "executed": true,
+    "scope": "one-shot container: ro rootfs, ro /canon, 4 MB noexec tmpfs",
+    "network": "none (--network=none)",
+    "host_writes": 0,
+    "summary": "container fs + own pids; dies after call"
+   },
+   "docker_argv": [
+    "run",
+    "--rm",
+    "--network=none",
+    "--read-only",
+    "--cap-drop=ALL",
+    "--security-opt=no-new-privileges",
+    "--pids-limit=32",
+    "--memory=64m",
+    "--cpus=0.5",
+    "--user=65534:65534",
+    "--tmpfs=/tmp:rw,size=4m,noexec",
+    "-v",
+    "/data/work/living-canon-vultr/canon:/canon:ro",
+    "alpine:3.20",
+    "ls",
+    "-1",
+    "/canon"
+   ],
+   "output": "canon.json\n",
+   "bytes": 11,
+   "error": null,
+   "exit": 0,
+   "ms": 269
+  },
+  {
+   "step": 2,
+   "tool": "read_canon",
+   "requested": "canon.json",
+   "resolved": "/canon/canon.json",
+   "why": "load characters, locations and global negatives (focus: mileo_chen, sierra_catalano)",
+   "decision": "allowed",
+   "reason": "allowlisted + jailed",
+   "explain": null,
+   "mode": "docker",
+   "blast_radius": {
+    "executed": true,
+    "scope": "one-shot container: ro rootfs, ro /canon, 4 MB noexec tmpfs",
+    "network": "none (--network=none)",
+    "host_writes": 0,
+    "summary": "container fs + own pids; dies after call"
+   },
+   "docker_argv": [
+    "run",
+    "--rm",
+    "--network=none",
+    "--read-only",
+    "--cap-drop=ALL",
+    "--security-opt=no-new-privileges",
+    "--pids-limit=32",
+    "--memory=64m",
+    "--cpus=0.5",
+    "--user=65534:65534",
+    "--tmpfs=/tmp:rw,size=4m,noexec",
+    "-v",
+    "/data/work/living-canon-vultr/canon:/canon:ro",
+    "alpine:3.20",
+    "head",
+    "-c",
+    "65536",
+    "/canon/canon.json"
+   ],
+   "output": "{\n \"characters\": {\n  \"mileo_chen\": {\n   \"display_name\": \"Mileo Chen\",\n   \"eyes\": \"vivid green\",\n   \"scars\": [\n    \"Link nodule base of skull (pre-cut)\",\n    \"nape extraction scar (post-cut)\",\n    \"Serpent Coil LEFT wrist indigo bioluminescence (post-cut only)\"\n   ],\n   \"invariant… (+5421 bytes)",
+   "bytes": 5703,
+   "error": null,
+   "exit": 0,
+   "ms": 256
+  }
+ ],
+ "llm": {
+  "text": "PASS — prompt is canon-consistent. Continuity locks respected for mileo_chen, sierra_catalano.",
+  "mode": "mock",
+  "model": "mock (deterministic)",
+  "ms": 0
+ },
+ "blast_radius": {
+  "network": "none",
+  "host_writes": 0,
+  "blocked_calls": 0,
+  "executed_calls": 2,
+  "errored_calls": 0,
+  "scope": "read-only /canon inside one-shot containers",
+  "docker_flags_summary": "--rm --network=none --read-only --cap-drop=ALL --security-opt=no-new-privileges --pids-limit=32 --memory=64m --cpus=0.5 --user=65534:65534 --tmpfs=/tmp:rw,size=4m,noexec",
+  "blocked_reasons": []
+ },
+ "meta": {
+  "inference_mode": "mock",
+  "sandbox_mode": "docker",
+  "version": "0.2.0",
+  "ms": 533
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "ok": true,
+ "version": "0.2.0",
+ "inference_mode": "mock",
+ "model": "mock",
+ "sandbox_mode": "docker",
+ "sandbox_image": "alpine:3.20",
+ "policy": {
+  "canon_root": "/canon",
+  "allowlist": [
+   {
+    "name": "list_canon",
+    "access": "read",
+    "description": "List files in the read-only canon mount"
+   },
+   {
+    "name": "read_canon",
+    "access": "read",
+    "description": "Read one file (≤64 KB) under /canon"
+   }
+  ],
+  "denied_examples": [
+   {
+    "name": "write_canon",
+    "why": "write access to canon is never granted to the agent"
+   },
+   {
+    "name": "http_fetch",
+    "why": "no network: container runs with --network=none and no egress tool exists"
+   },
+   {
+    "name": "exec_shell",
+    "why": "no arbitrary command execution; only fixed argv for allowlisted tools"
+   }
+  ],
+  "path_jail": [
+   "resolve under /canon",
+   "reject ../ escapes and absolute paths outside",
+   "reject NUL, ~, %2e/%2f, backslashes",
+   "max 256 chars"
+  ],
+  "docker_flags": [
+   "--rm",
+   "--network=none",
+   "--read-only",
+   "--cap-drop=ALL",
+   "--security-opt=no-new-privileges",
+   "--pids-limit=32",
+   "--memory=64m",
+   "--cpus=0.5",
+   "--user=65534:65534",
+   "--tmpfs=/tmp:rw,size=4m,noexec"
+  ],
+  "canon_mount": "/canon:ro",
+  "human": [
+   "Only list_canon and read_canon can run.",
+   "Every path is jailed to /canon (mounted read-only).",
+   "Each allowed call runs in a fresh container: no network, read-only rootfs, all capabilities dropped, nobody user, 64 MB / 32 pids.",
+   "Blocked calls are never executed — their blast radius is zero."
+  ]
+ }
+}
