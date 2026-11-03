@@ -1,0 +1,11 @@
+# Vultr VM checklist (run only once keys/credits are confirmed — no other spend)
+- [ ] Vultr console: confirm $200 hackathon credits active
+- [ ] Create Cloud Compute VM: Ubuntu 24.04, smallest regular plan (1 vCPU/1–2 GB), region Amsterdam or Frankfurt; add SSH key; firewall group allowing 22, 80, 443 only
+- [ ] `ssh root@IP`; create user; `apt update && apt -y upgrade`
+- [ ] Docker: `curl -fsSL https://get.docker.com | sh`; `docker pull alpine:3.20`
+- [ ] `git clone https://github.com/TheNeuralWars/living-canon-vultr && cd living-canon-vultr`
+- [ ] `cp .env.example .env`; set `VULTR_INFERENCE_MODE=live`, URL, API key, model (Vultr console → Serverless Inference); `SANDBOX_MODE=docker`; `chmod 600 .env`
+- [ ] `docker compose up -d --build`; `curl localhost:3000/api/health` shows `inference_mode: live`
+- [ ] Caddy: `apt install caddy`; Caddyfile `demo.example.com { reverse_proxy 127.0.0.1:3000 }` (DNS A record → VM IP; no Cloudflare tunnel changes)
+- [ ] Smoke: 3 demo prompts from README; verify blocked calls + sandbox containers exit (`docker ps -a` empty)
+- [ ] Record video; put URL in README + lablab submission

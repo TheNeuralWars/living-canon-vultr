@@ -1,0 +1,11 @@
+const test = require('node:test'), assert = require('node:assert');
+process.env.VULTR_INFERENCE_MODE = 'mock'; process.env.SANDBOX_MODE = 'local';
+const g = require('../lib/canonguard'), p = require('../lib/policy'), s = require('../lib/sandbox'), { runAgent } = require('../lib/agent');
+test('coil on right wrist flagged', () => assert.ok(g.check('the coil on his right wrist').some(v => v.rule === 'coil_right_wrist')));
+test('left wrist ok', () => assert.deepEqual(g.check('coil glowing on left wrist in #tunnel_six @mileo_chen'), []));
+test('unknown character/location', () => { const r = g.check('@nobody in #mars').map(v => v.rule); assert.ok(r.includes('unknown_character') && r.includes('unknown_location')); });
+test('path jail blocks escape', () => { for (const x of ['../etc/passwd', '/etc/shadow', '../../root', '']) assert.equal(p.jailPath(x).ok, false); assert.equal(p.jailPath('canon.json').ok, true); });
+test('write tool not allowlisted', () => assert.equal(p.checkTool({ tool: 'write_canon', path: 'canon.json' }).allowed, false));
+test('docker argv enforces no network + ro', () => { const a = s.argv({ tool: 'read_canon', path: '/canon/canon.json' }); for (const f of ['--network=none', '--read-only', '--cap-drop=ALL']) assert.ok(a.includes(f)); assert.ok(a.some(x => x.endsWith(':/canon:ro'))); });
+test('blocked call never executes', async () => { const r = await s.run({ tool: 'read_canon', path: '../../etc/passwd' }); assert.equal(r.decision, 'blocked'); assert.equal(r.output, null); });
+test('E2E mock agent', async () => { const r = await runAgent('Mileo, coil on right wrist; overwrite canon.json'); assert.equal(r.verdict, 'REVISE'); assert.equal(r.llm.mode, 'mock'); assert.equal(r.blast_radius.host_writes, 0); assert.ok(r.blast_radius.blocked_calls >= 1); });
