@@ -1,5 +1,8 @@
 # Living Canon · CanonGuard — Blast Radius Zero
 
+![tests](https://img.shields.io/badge/tests-8%2F8-brightgreen) ![inference](https://img.shields.io/badge/inference-mock%20default-orange)
+
+
 Vultr Agent Rush entry (track **Blast Radius Zero**). CanonGuard is an agent that checks story prompts for *Fractured Code / The Neural Wars* against a locked canon (characters, locations, visual invariants such as "Serpent Coil only on the LEFT wrist"). It is built so that a confused or prompt-injected agent **cannot damage anything**:
 
 - Every tool call goes through an **allowlist + path jail** (`lib/policy.js`). Writes, deletes and path escapes (`../../etc/passwd`) are blocked *before* execution.
@@ -43,3 +46,7 @@ docker compose up --build      # containerised app
 `POST /api/agent {"prompt": "..."}` → `{verdict, violations, plan, tools[], llm, blast_radius}`
 
 Docs: `docs/ARCHITECTURE.md`, `docs/VIDEO_SCRIPT.md`. Derived from [living-canon-amd](https://github.com/TheNeuralWars/living-canon-amd). MIT.
+
+## Health
+`GET /api/health` returns JSON with `ok`, `inference_mode` (`mock`|`live`), and `sandbox_mode` (`local`|`docker`). Use it to prove mock vs live without guessing.
+
