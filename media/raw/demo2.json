@@ -1,0 +1,58 @@
+{
+ "verdict": "REVISE",
+ "violations": [
+  {
+   "rule": "coil_right_wrist",
+   "detail": "Serpent Coil is LEFT wrist only"
+  },
+  {
+   "rule": "unknown_character",
+   "detail": "ghost_x"
+  }
+ ],
+ "plan": [
+  {
+   "tool": "read_canon",
+   "path": "canon.json"
+  },
+  {
+   "tool": "write_canon",
+   "path": "canon.json"
+  }
+ ],
+ "tools": [
+  {
+   "tool": "read_canon",
+   "requested": "canon.json",
+   "decision": "allowed",
+   "reason": null,
+   "mode": "local",
+   "blast_radius": "container fs (ro /canon, 4MB tmpfs) + its own pids; network=none; no host write",
+   "output": "{\n \"characters\": {\n  \"mileo_chen\": {\n   \"display_name\": \"Mileo Chen\",\n   \"eyes\": \"vivid green\",\n   \"scars\": [\n    \"Link nodule base of skull (pre-cut)\",\n    \"nape extraction scar (post-cut)\",\n    \"Ser…",
+   "ms": 0
+  },
+  {
+   "tool": "write_canon",
+   "requested": "canon.json",
+   "decision": "blocked",
+   "reason": "tool_not_allowlisted",
+   "mode": "local",
+   "blast_radius": "zero (never executed)",
+   "output": null,
+   "ms": 0
+  }
+ ],
+ "llm": {
+  "text": "CanonGuard (mock LLM): REVISE. Violations: coil_right_wrist:Serpent Coil is LEFT wrist only; unknown_character:ghost_x. Suggested fix: align with canon invariants (e.g. Coil on LEFT wrist, known characters/locations only).",
+  "model": "mock",
+  "mode": "mock",
+  "ms": 0
+ },
+ "blast_radius": {
+  "network": "none",
+  "host_writes": 0,
+  "blocked_calls": 1,
+  "executed_calls": 1,
+  "scope": "read-only /canon inside one-shot container"
+ }
+}
